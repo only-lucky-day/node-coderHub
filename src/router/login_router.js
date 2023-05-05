@@ -1,12 +1,13 @@
 const KoaRouter = require('@koa/router');
 const loginController = require('../controller/login_controller');
 const { verifyLogin, verifyAuth } = require('../middleware/login_middleware');
+
 const loginRouter = new KoaRouter({ prefix: '/login' });
 
 loginRouter.post('/', verifyLogin, loginController.sign);
 loginRouter.get('/test', verifyAuth, loginController.test);
 
-module.exports = { loginRouter };
+module.exports = loginRouter;
 /**
  * 登录步骤：
  * 1、判断用户名密码是否为空
