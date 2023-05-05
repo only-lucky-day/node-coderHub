@@ -1,9 +1,11 @@
+const jwt = require('jsonwebtoken');
 const {
-  NAME_IS_ALREDY_EXISTS,
   NAME_RO_PASSWORD_IS_REQUIREN,
   NAME_IS_ONT_EXISTS,
   PASSWORD_IS_INCORRENT,
+  UNAUTHORIZATION,
 } = require('../config/error');
+const { PUBLIC_KEY } = require('../config/screct');
 const userService = require('../service/user_service');
 const { md5Password } = require('../utils/md5-password');
 
@@ -23,8 +25,24 @@ const verifyLogin = async (ctx, next) => {
   ctx.user = user;
   await next();
 };
+const verifyAuth = async (ctx, next) => {
+  //获取token
+  const authorization = ctx.headers.authorization;
+  const token = authorization.replace('Bearer ', '');
+  try {
+    const result = jwt.verify(token, PUBLIC_KEY, {
+      algorithms: 'RS256',
+    });
+    ctx.user = result;
+    await next();
+  } catch (error) {
+    console.log(error);
+    ctx.app.emit('error', UNAUTHORIZATION, ctx);
+  }
+};
 module.exports = {
   verifyLogin,
+  verifyAuth,
 };
 /**
  * 登录步骤：
