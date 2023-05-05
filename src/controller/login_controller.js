@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { PRIVATE_KEY, PUBLIC_KEY } = require('../config/screct');
 const { UNAUTHORIZATION } = require('../config/error');
 
-class loginController {
+class LoginController {
   sign(ctx, next) {
     const { id, name } = ctx.user;
     const token = jwt.sign({ name, id }, PRIVATE_KEY, {
@@ -16,7 +16,7 @@ class loginController {
     ctx.body = `访问成功~`;
   }
 }
-module.exports = new loginController();
+module.exports = new LoginController();
 
 /**
  * 登录步骤：

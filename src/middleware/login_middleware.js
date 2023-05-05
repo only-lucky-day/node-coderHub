@@ -27,9 +27,9 @@ const verifyLogin = async (ctx, next) => {
 };
 const verifyAuth = async (ctx, next) => {
   //获取token
-  const authorization = ctx.headers.authorization;
-  const token = authorization.replace('Bearer ', '');
   try {
+    const authorization = ctx.headers.authorization;
+    const token = authorization.replace('Bearer ', '');
     const result = jwt.verify(token, PUBLIC_KEY, {
       algorithms: 'RS256',
     });

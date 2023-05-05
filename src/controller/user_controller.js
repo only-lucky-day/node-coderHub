@@ -1,6 +1,6 @@
 // #控制层
 const userService = require('../service/user_service.js');
-class uesrController {
+class UesrController {
   async create(ctx, next) {
     //1.用户传递过来的数据  request 接收数据
     const user = ctx.request.body;
@@ -13,4 +13,4 @@ class uesrController {
     };
   }
 }
-module.exports = new uesrController();
+module.exports = new UesrController();

@@ -1,7 +1,7 @@
 // #数据库交互
 
 const connection = require('../app/database.js');
-class userService {
+class UserService {
   async create(user) {
     //1.获取user信息
     const { name, password } = user;
@@ -20,4 +20,4 @@ class userService {
     return value;
   }
 }
-module.exports = new userService();
+module.exports = new UserService();
